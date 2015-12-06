@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>PagWeb</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/sb-admin.css" rel="stylesheet">
+    <!-- Morris Charts CSS -->
+    <link href="css/plugins/morris.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <title>CalendarioALPHA</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -9,18 +18,14 @@
 <body>
 
 	<% if user_signed_in? %>
-	Signed in as <%= current_user.email%>. Not you?
-	<%= link_to "Sign out", destroy_user_session_path,:method => :delete %>
-	<% else %>
-
-	<!-- <%= link_to "Sign up", new_user_registration_path %> or
-	<%= link_to "Sign in", new_user_session_path %>  -->
-
-	<%= link_to "Sign in with Google", user_omniauth_authorize_path(:google_oauth2) %>
+		<%= render :partial => 'layouts/navbar' %>
+	<%# else %>
+		<!-- <%= link_to "Sign up", new_user_registration_path %> or
+		<%= link_to "Sign in", new_user_session_path %>  -->
+		<%#= render :partial => 'layouts/login'%>
 	<% end %>
 
 <%= yield %>
-
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
 

@@ -12,7 +12,7 @@ Devise.setup do |config|
       config.omniauth :google_oauth2,'1045371636304-hv6cs5p82eb4n9mrecc5pg3a0f9uragq.apps.googleusercontent.com',
       '42s_ohxZiUrEdLxC2cODh4Ul',
       { hd: "ciencias.unam.mx", access_type: "offline", approval_prompt: "",
-      scope: 'userinfo.email,calendar' }
+      scope: 'userinfo.email,userinfo.profile,calendar',skip_jwt: true }
 
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
@@ -144,7 +144,7 @@ Devise.setup do |config|
   # config.remember_for = 2.weeks
 
   # Invalidates all the remember me tokens when the user signs out.
-  config.expire_all_remember_me_on_sign_out = true
+  #config.expire_all_remember_me_on_sign_out = true
 
   # If true, extends the user's remember period when remembered via cookie.
   # config.extend_remember_period = false
