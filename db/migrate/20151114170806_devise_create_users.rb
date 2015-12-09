@@ -25,6 +25,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :uid
       t.string :provider
 
+
       ## Confirmable
       # t.string   :confirmation_token
       # t.datetime :confirmed_at

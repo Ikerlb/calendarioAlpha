@@ -1,0 +1,32 @@
+<%= render :partial => 'layouts/materias' %>
+
+<div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-book fa-fw"></i>Lista de materias</h3>
+                </div>
+                <div class="panel-body">
+                    <center>
+                    <% @subjects.each do |subject| %>
+                      <div id="morris-area-chart">
+                          <p><%= subject.user.name %></p>
+                          <p><%= subject.group_number %></p>
+                          <p><%= subject.name %></p>
+                          <p><%= subject.body %></p>
+                          <%= link_to 'Show', subject %>
+                          <%= link_to 'Edit', edit_subject_path(subject) %>
+                          <%= link_to 'Destroy', subject, method: :delete, data: { confirm: 'Are you sure?' } %>
+                      </div>
+                    <% end %>
+                    </center>
+                  <%#If user is teacher, show him the create subject path%>
+                  <% if current_user.is_teacher? %>
+                    <%= link_to new_subject_path+"/" do %>
+                     <i class="fa fa-plus fa-fw"></i> Crear materia
+                    <% end %>
+                  <%end%>
+                </div>
+            </div>
+        </div>
+</div>

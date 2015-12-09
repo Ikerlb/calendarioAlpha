@@ -1,0 +1,41 @@
+<%= form_for(@subject) do |f| %>
+  <% if @subject.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@subject.errors.count, "error") %> prohibited this subject from being saved:</h2>
+
+      <ul>
+      <% @subject.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :Numero_de_grupo %><br>
+    <%= f.number_field :group_number, placeholder: "3365",class:"form-control" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Semestre %><br>
+    <div class="form-control-semester"><%= strPlaceholder=(Time.now.year+1).to_s+" -" %> </div>
+    <%= f.text_field :semester, placeholder: "1",class:"form-control-semester" %>
+  </div>
+
+
+  <div class="field">
+    <%= f.label :Nombre_de_la_materia %><br>
+    <%= f.text_field :name, placeholder: "Algebra Lineal" ,class:"form-control"%>
+  </div>
+
+  <div class="field">
+    <%= f.label :Descripcion_o_informacion_adicional %><br>
+    <%= f.text_area :body , placeholder: "Grupo de Juan Perez de las 13 hrs",class:"form-control" %>
+  </div>
+
+  <p></p>
+
+  <div class="actions">
+    <%= f.submit "Agregar Materia", class:"myButton"%>
+  </div>
+<% end %>

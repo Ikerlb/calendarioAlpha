@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151118002236) do
+ActiveRecord::Schema.define(version: 20151209031455) do
 
   create_table "events", force: :cascade do |t|
     t.integer  "user_id"
@@ -22,6 +22,19 @@ ActiveRecord::Schema.define(version: 20151118002236) do
   end
 
   add_index "events", ["user_id"], name: "index_events_on_user_id"
+
+  create_table "subjects", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "group_number"
+    t.text     "google_calendar_id"
+    t.string   "name"
+    t.text     "body"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "semester"
+  end
+
+  add_index "subjects", ["user_id"], name: "index_subjects_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -40,6 +53,8 @@ ActiveRecord::Schema.define(version: 20151118002236) do
     t.string   "provider"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.integer  "permission_level",       default: 1
+    t.string   "refresh_token"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

@@ -2,12 +2,11 @@
 <html>
 <head>
     <title>PagWeb</title>
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css" rel="stylesheet">
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/sb-admin.css" rel="stylesheet">
-    <!-- Morris Charts CSS -->
-    <link href="css/plugins/morris.css" rel="stylesheet">
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <title>CalendarioALPHA</title>
@@ -17,17 +16,29 @@
 </head>
 <body>
 
-	<% if user_signed_in? %>
-		<%= render :partial => 'layouts/navbar' %>
-	<%# else %>
-		<!-- <%= link_to "Sign up", new_user_registration_path %> or
-		<%= link_to "Sign in", new_user_session_path %>  -->
-		<%#= render :partial => 'layouts/login'%>
-	<% end %>
+    <!--If user signed in render navbar-->
+  	<% if user_signed_in? %>
+  		<%= render :partial => 'layouts/navbar' %>
+      <div id="page-wrapper">
+        <div class="container-fluid">
+            <%= yield %>
+              <p class="notice"><%= notice %></p>
+              <p class="alert"><%= alert %></p>
+        </div>
+      </div>
 
-<%= yield %>
+    <!--Else don't-->
+    <%else%>
+      <%= yield %>
+        <p class="notice"><%= notice %></p>
+         <p class="alert"><%= alert %></p>
+  	<% end %>
+
+
+
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
+
 
 </body>
 </html>

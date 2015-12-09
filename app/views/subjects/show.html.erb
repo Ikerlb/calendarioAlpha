@@ -1,0 +1,48 @@
+<%= render :partial => 'layouts/materias' %>
+<div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-book fa-fw"></i><%= @subject.name %>  <%= Time.now.year+1%>-<%=@subject.semester%></h3>
+                </div>
+                <div class="panel-body">
+                    <center>
+                      <p>
+                        <strong>Nombre del profesor:</strong>
+                          <%= @subject.user.name %>
+                        </p>
+
+                        <p>
+                          <strong>Numero de grupo:</strong>
+                          <%= @subject.group_number %>
+                        </p>
+
+                        <p>
+                          <strong>Descripcion:</strong>
+                          <%= @subject.body %>
+                        </p>
+
+                        <%if @subject.google_calendar_id%>
+                          <p>
+                            <%urlGoogleCalendar="https://calendar.google.com/calendar/embed?src="+@subject.google_calendar_id.gsub('@','%40')+"&ctz=America/Mexico_City"%>
+                            <iframe src=<%=urlGoogleCalendar%> style="border:0" width="500" height="400" frameborder="0" scrolling="no"></iframe>
+                          </p>
+                        <%end%>
+                    </center>
+                  <%#If user is teacher, show him the create subject path%>
+                  <% if current_user.is_teacher? %>
+                    <%= link_to new_subject_path+"/" do %>
+                     <i class="fa fa-plus fa-fw"></i> Crear materia
+                    <% end %>
+                  <%end%>
+                </div>
+            </div>
+        </div>
+</div>
+
+<%= link_to subjects_path do %>
+    <i class="fa fa-arrow-left fa-fw"></i> Atras
+<% end %>
+|
+<%= link_to 'Edit', edit_subject_path(@subject) %>
+
