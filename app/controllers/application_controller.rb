@@ -13,4 +13,11 @@ class ApplicationController < ActionController::Base
   	redirect_to root_path unless user_signed_in? && current_user.is_admin?
   end
 
+  def init_client
+    client = Google::APIClient.new
+    client.authorization.refresh_token=current_user.refresh_token
+    client.authorization.access_token = current_user.fresh_token
+    return client
+  end
+
 end

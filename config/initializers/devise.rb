@@ -9,8 +9,8 @@ Devise.setup do |config|
       #scope: 'userinfo.email,calendar' }
 
     require 'omniauth-google-oauth2'
-      config.omniauth :google_oauth2,'1045371636304-hv6cs5p82eb4n9mrecc5pg3a0f9uragq.apps.googleusercontent.com',
-      '42s_ohxZiUrEdLxC2cODh4Ul',
+      config.omniauth :google_oauth2,Rails.application.secrets.client_id,
+      Rails.application.secrets.client_secret,
       { hd: "ciencias.unam.mx", access_type: "offline", approval_prompt: "",
       scope: 'userinfo.email,userinfo.profile,calendar',skip_jwt: true }
 

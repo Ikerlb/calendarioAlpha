@@ -4,7 +4,6 @@ class SubjectsController < ApplicationController
   before_action :set_subject, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_teacher!, only:[:new,:create,:destroy,:edit,:update]
 
-
   # GET /subjects
   # GET /subjects.json
   def index
@@ -26,12 +25,6 @@ class SubjectsController < ApplicationController
   def edit
   end
 
-  def init_client
-    client = Google::APIClient.new
-    client.authorization.access_token=current_user.token
-    return client
-  end
-
   # POST /subjects
   # POST /subjects.json
   def create
@@ -40,7 +33,7 @@ class SubjectsController < ApplicationController
     service = client.discovered_api('calendar', 'v3')
 
     calendar= {
-      'summary'=> parametros[:name]+" 2016-"+parametros[:semester],
+      'summary'=> parametros[:name]+" 2016-1",
       'timeZone'=> "America/Mexico_City",
       'description'=> parametros[:body]
     }
@@ -51,7 +44,7 @@ class SubjectsController < ApplicationController
     :headers => {'Content-Type' => 'application/json'})
 
     parametros.store(:google_calendar_id,result.data.id)
-
+    parametros.store(:semester,"2016-1")
     @subject=current_user.subjects.new(parametros)
 
 
@@ -98,6 +91,6 @@ class SubjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def subject_params
-      params.require(:subject).permit(:group_number,:semester,:name,:body)
+      params.require(:subject).permit(:group_number,:name,:body)
     end
-end
+end 

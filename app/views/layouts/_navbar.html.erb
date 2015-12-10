@@ -1,8 +1,6 @@
 
 <div id="wrapper">
-    <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                 <span class="icon-bar"></span>
@@ -10,11 +8,10 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <!-- <a class="navbar-brand" href="index.html">PagWeb</a> -->
             <%=link_to "PagWeb" ,root_url,class:"navbar-brand" %>
         </div>
-        <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
+            <!--Notificaciones-->
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
                 <ul class="dropdown-menu message-dropdown">
@@ -68,6 +65,7 @@
                     </li>
                 </ul>
             </li>
+            <!-- Muestra el nombre de el usuario actual y despliega menu-->
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <%= current_user.name %> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
@@ -76,8 +74,6 @@
                     </li>
                     <li class="divider"></li>
                     <li>
-                        <!--<a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>-->
-
                         <%= link_to destroy_user_session_path,method: :delete do %>
                             <i class="fa fa-fw fa-power-off"></i> Log out
                         <% end %>
@@ -86,31 +82,47 @@
                 </ul>
             </li>
         </ul>
-        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+        <!-- Barra lateral-->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
-                <!-- Sombrear pestaña actual-->
+                <!-- Marcar pestaña actual como activa-->
                 <% if current_page?(root_url)%>
                     <li class="active">
                 <%else%>
                     <li>
                 <%end%>
-                    <%=link_to "Inicio" ,root_url,class:"fa fa-fw fa-check-square-o" %>
+                  <%= link_to root_url do %>
+                   <i class="fa fa-check-square-o fa-fw"></i>Inicio
+                  <%end%>
                 </li>
-                <% if current_page?(root_url)%>
+                <% if controller.controller_name=="events"%>
                     <li class="active">
                 <%else%>
                     <li>
                 <%end%>
-                    <%=link_to "Eventos Proximos" ,root_url,class:"fa fa-fw fa-calendar" %> 
+                  <%= link_to events_path+"/" do %>
+                   <i class="fa fa-calendar fa-fw"></i>Eventos
+                  <%end%>
                 </li>
-            <% if current_page?(subjects_path)||current_page?(new_subject_path)%>
+                <% if controller.controller_name == "subjects"%>
                     <li class="active">
                 <%else%>
                     <li>
                 <%end%>
-                    <%=link_to "Materias" ,subjects_path+"/",class:"fa fa-fw fa-book" %> 
+                  <%= link_to subjects_path+"/" do %>
+                   <i class="fa fa-book fa-fw"></i>Mis Materias
+                  <%end%>
                 </li>
+                <%if current_user.is_teacher? || current_user.is_admin? %>
+                    <% if current_page?(new_subject_path)%>
+                        <li class="active">
+                    <%else%>
+                        <li>
+                    <%end%>
+                    <%= link_to new_subject_path+"/" do %>
+                        <i class="fa fa-plus fa-fw"></i>Crear Materia
+                    <%end%>
+                <% end %>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
