@@ -5,13 +5,11 @@ class SubjectsController < ApplicationController
   before_action :authenticate_teacher!, only:[:new,:create,:destroy,:edit,:update]
 
   # GET /subjects
-  # GET /subjects.json
   def index
     @subjects = Subject.all
   end
 
   # GET /subjects/1
-  # GET /subjects/1.json
   def show
   end
 
@@ -26,7 +24,6 @@ class SubjectsController < ApplicationController
   end
 
   # POST /subjects
-  # POST /subjects.json
   def create
     parametros=subject_params
     client=init_client
@@ -47,28 +44,22 @@ class SubjectsController < ApplicationController
     parametros.store(:semester,"2016-1")
     @subject=current_user.subjects.new(parametros)
 
-
     respond_to do |format|
       if @subject.save
         format.html { redirect_to @subject, notice: 'Subject was successfully created.' }
-        format.json { render :show, status: :created, location: @subject }
       else
         format.html { render :new }
-        format.json { render json: @subject.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # PATCH/PUT /subjects/1
-  # PATCH/PUT /subjects/1.json
   def update
     respond_to do |format|
       if @subject.update(subject_params)
         format.html { redirect_to @subject, notice: 'Subject was successfully updated.' }
-        format.json { render :show, status: :ok, location: @subject }
       else
         format.html { render :edit }
-        format.json { render json: @subject.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -78,8 +69,11 @@ class SubjectsController < ApplicationController
   def destroy
     @subject.destroy
     respond_to do |format|
+      client=init_client
+      service = client.discovered_api('calendar', 'v3')
+      client.execute(:api_method => service.calendars.delete,
+                        :parameters => {'calendarId' => @subject.google_calendar_id})
       format.html { redirect_to subjects_url, notice: 'Subject was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
