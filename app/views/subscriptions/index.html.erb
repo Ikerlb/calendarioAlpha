@@ -1,17 +1,25 @@
-<%= render :partial => 'layouts/materias' %>
+<!-- Page Heading -->
+<div class="row">
+    <div class="col-lg-12">
+            <h1 class="page-header">
+                Mis Materias
+            </h1>
+    </div>
+</div>
 
-<!--Si no hay materias -->
-<%unless @subjects.present? %>
+
+<%unless @subscriptions.present?%>
   <div class="row">
           <div class="col-lg-12">
               <div class="panel panel-default">
                   <div class="panel-heading">
-                      <h3 class="panel-title"><i class="fa fa-calendar fa-fw"></i>Lista de materias</h3>
+                      <h3 class="panel-title"><i class="fa fa-calendar fa-fw"></i>Mis materias</h3>
                   </div>
                   <div class="panel-body">
                       <center>
                           <div id="morris-area-chart">
-                            Por el momento no se ha creado ninguna materia.
+                            Por el momento no te has suscrito a ninguna materia. Mira las materias disponibles 
+                            <%= link_to "aqui", subjects_path+"/"%>
                           </div>
                       </center>
                   </div>
@@ -20,8 +28,9 @@
   </div>
 <%end%>
 
-<!--Si hay materias, iteramos una por una y le damos formato-->
-<% @subjects.each do |subject| %>
+<% @subscriptions.each do |subscription| %>
+	<!--Si hay materias, iteramos una por una y le damos formato-->
+  <%subject=subscription.subject%>
   <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
@@ -38,23 +47,13 @@
                           <p><strong>Nombre del profesor: </strong><%= subject.user.name %></p>
                           <p><strong>Numero de grupo: </strong><%= subject.group_number %></p>
                           <p><strong>Descripcion: </strong><%= subject.body %></p>
-                          <!--Si el usuario es administrador o el usuario es maestro, mostrar enlaces a editar y borrar-->
-                          <% if current_user == subject.user || current_user.is_admin?%>
-                            <%= link_to edit_subject_path(subject) do %>
-                                <i class="fa fa-edit fa-fw"></i> Editar
-                            <% end %>
-                            |
-                            <%= link_to subject, method: :delete, data: { confirm: 'Estas seguro?' } do %>
-                                <i class="fa fa-trash fa-fw"></i> Eliminar
-                            <% end %>
-                          <%elsif current_user.is_normal_user? && %>
-                            <%= link_to subscriptions_path(:subject_id => subject.id),method: :post do %>
-                                <i class="fa fa-plus fa-fw"></i> Agregar a mis materias
-                            <% end %>
-                          <%end%>
+                          <%= link_to subscription,method: :delete do %>
+                              <i class="fa fa-plus fa-fw"></i> Eliminar de mis materias
+                          <% end %>
+
                      </div>
                 </div>
             </div>
         </div>
   </div>
-<% end %>
+<%end%>

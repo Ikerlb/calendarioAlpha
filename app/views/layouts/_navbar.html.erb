@@ -104,25 +104,34 @@
                    <i class="fa fa-calendar fa-fw"></i>Eventos
                   <%end%>
                 </li>
-                <% if controller.controller_name == "subjects"%>
+                
+                <!--Materias -->
+                <% if controller.controller_name == "subjects"||controller.controller_name=="subscriptions"%>
                     <li class="active">
                 <%else%>
                     <li>
                 <%end%>
-                  <%= link_to subjects_path+"/" do %>
-                   <i class="fa fa-book fa-fw"></i>Mis Materias
-                  <%end%>
-                </li>
-                <%if current_user.is_teacher? || current_user.is_admin? %>
-                    <% if current_page?(new_subject_path)%>
-                        <li class="active">
-                    <%else%>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-book fa-fw"></i> Materias <i class="fa fa-fw fa-caret-down"></i></a>
+                    <ul id="demo" class="collapse">
+                        <%if current_user.is_teacher? || current_user.is_admin? %>
+                            <li>
+                            <%= link_to new_subject_path+"/" do %>
+                                <i class="fa fa-plus fa-fw"></i>Crear Materia
+                            <%end%>
+                            </li>
+                        <% end %>
                         <li>
-                    <%end%>
-                    <%= link_to new_subject_path+"/" do %>
-                        <i class="fa fa-plus fa-fw"></i>Crear Materia
-                    <%end%>
-                <% end %>
+                          <%= link_to subscriptions_path+"/" do %>
+                             <i class="fa fa-check-square fa-fw"></i>Mis Materias
+                          <%end%>
+                        </li>
+                        <li>
+                          <%= link_to subjects_path+"/" do %>
+                             <i class="fa fa-reorder fa-fw"></i>Todas las materias
+                          <%end%>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->

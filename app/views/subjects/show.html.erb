@@ -41,8 +41,13 @@
                           <i class="fa fa-edit fa-fw"></i> Editar
                       <% end %>
                       |
-                      <%= link_to @subject, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                      <%= link_to @subject, method: :delete, data: { confirm: 'Quieres eliminar la materia?' } do %>
                           <i class="fa fa-trash fa-fw"></i> Eliminar
+                      <% end %>
+                    <%else current_user.is_normal_user? %>
+                     |
+                      <%= link_to subjects_path+"/" do %>
+                          <i class="fa fa-plus fa-fw"></i> Agregar a mis materias
                       <% end %>
                     <%end%>
                 </div>

@@ -10,6 +10,6 @@ module PermissionsConcern
 	end
 
 	def is_admin?
-		sef.permission_level>=3
+		self.permission_level>=3
 	end
 end

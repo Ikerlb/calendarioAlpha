@@ -46,7 +46,7 @@ class SubjectsController < ApplicationController
 
     respond_to do |format|
       if @subject.save
-        format.html { redirect_to @subject, notice: 'Subject was successfully created.' }
+        format.html { redirect_to @subject, notice: 'Se ha creado la materia.' }
       else
         format.html { render :new }
       end
@@ -57,7 +57,7 @@ class SubjectsController < ApplicationController
   def update
     respond_to do |format|
       if @subject.update(subject_params)
-        format.html { redirect_to @subject, notice: 'Subject was successfully updated.' }
+        format.html { redirect_to @subject, notice: 'Se ha actualizado la materia.' }
       else
         format.html { render :edit }
       end
@@ -73,7 +73,7 @@ class SubjectsController < ApplicationController
       service = client.discovered_api('calendar', 'v3')
       client.execute(:api_method => service.calendars.delete,
                         :parameters => {'calendarId' => @subject.google_calendar_id})
-      format.html { redirect_to subjects_url, notice: 'Subject was successfully destroyed.' }
+      format.html { redirect_to subjects_url, notice: 'Se ha eliminado la materia.' }
     end
   end
 

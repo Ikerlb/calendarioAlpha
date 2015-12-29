@@ -3,6 +3,14 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  #def has_subjects
+    #@has_subjects=HasSubject.where(user_id: current_user.id)
+  #end
+
+  #def create_subscription
+    #HasSubject.create(user_id: current_user.id,subject_id: subject)
+  #end
+
   protected
 
   def authenticate_teacher!
