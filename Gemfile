@@ -29,6 +29,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'devise'
 
+gem 'chronic'
+
 # autenticar con google+ para utilizar google calendar
 gem 'google-api-client', :require => 'google/api_client'
 gem 'omniauth'

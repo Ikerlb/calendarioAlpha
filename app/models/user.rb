@@ -2,6 +2,7 @@ require 'net/http'
 require 'json'
 
 class User < ActiveRecord::Base
+  before_destroy { |user| user.subscriptions.destroy_all }
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
 	devise :database_authenticatable, :registerable,

@@ -2,11 +2,16 @@ require 'google/api_client'
 
 class SubjectsController < ApplicationController
   before_action :set_subject, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_teacher!, only:[:new,:create,:destroy,:edit,:update]
+  before_action :authenticate_teacher!, only:[:new,:create,:update,:destroy,:edit, :created]
 
   # GET /subjects
   def index
     @subjects = Subject.all
+  end
+
+  def created
+    @subjects = Subject.where(user_id: current_user.id)
+    render "index"
   end
 
   # GET /subjects/1
@@ -42,7 +47,8 @@ class SubjectsController < ApplicationController
 
     parametros.store(:google_calendar_id,result.data.id)
     parametros.store(:semester,"2016-1")
-    @subject=current_user.subjects.new(parametros)
+    parametros.store(:user_id,current_user.id)
+    @subject=Subject.new(parametros)
 
     respond_to do |format|
       if @subject.save

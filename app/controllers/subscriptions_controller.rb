@@ -1,7 +1,7 @@
 class SubscriptionsController < ApplicationController
 
 	def index
-		@subscriptions=Subscription.where(user_id:current_user.id)
+		@subscriptions=current_user.subscriptions
 	end
 
 	def create
@@ -15,9 +15,9 @@ class SubscriptionsController < ApplicationController
 	def destroy
 		@subscription=Subscription.find(params[:id])
 		if @subscription.present?
-    	@subscription.destroy
-    end
-    redirect_to subscriptions_path+"/"
+    		@subscription.destroy
+	    end
+    	redirect_to subscriptions_path+"/"
 	end
 
 end

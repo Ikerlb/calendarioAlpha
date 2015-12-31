@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
   resources :events
-  resources :subjects
+  resources :events
+  resources :subjects do
+    collection do
+      get "created"
+    end
+  end
+
   resources :subscriptions, only: [:index,:create,:show,:destroy]
   root 'welcome#index'
   get 'welcome/index'

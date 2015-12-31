@@ -115,6 +115,13 @@
                     <ul id="demo" class="collapse">
                         <%if current_user.is_teacher? || current_user.is_admin? %>
                             <li>
+                            <%= link_to created_subjects_path+"/" do %>
+                                <i class="fa fa-star fa-fw"></i>Mis materias creadas
+                            <%end%>
+                            </li>
+                        <% end %>
+                        <%if current_user.is_teacher? || current_user.is_admin? %>
+                            <li>
                             <%= link_to new_subject_path+"/" do %>
                                 <i class="fa fa-plus fa-fw"></i>Crear Materia
                             <%end%>
@@ -122,7 +129,7 @@
                         <% end %>
                         <li>
                           <%= link_to subscriptions_path+"/" do %>
-                             <i class="fa fa-check-square fa-fw"></i>Mis Materias
+                             <i class="fa fa-check-square fa-fw"></i>Mis Subscripciones
                           <%end%>
                         </li>
                         <li>
