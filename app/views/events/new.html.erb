@@ -1,5 +1,32 @@
-<h1>New Event</h1>
+<div class="row">
+    <div class="col-lg-12">
+            <h1 class="page-header">
+                Eventos
+            </h1>
+    </div>
+</div>
 
-<%= render 'form' %>
+<div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-plus fa-fw"></i>Nuevo Evento</h3>
+                </div>
+                <div class="panel-body">
+                    <div id="morris-area-chart">
+                    	<%if current_user.is_subject_creator?%>
+                    <center>
+                        	<%= render 'form' %>
+                    </center>
+                    	<%else%>
+                    		Antes de crear un evento, necesitas crear una materia. Ve <%= link_to "aqui", new_subject_path+"/"%> para crear una
+                    	<%end%>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
 
-<%= link_to 'Back', events_path %>
+<%= link_to events_path+"/" do %>
+    <i class="fa fa-arrow-left fa-fw"></i> Atras
+<% end %>

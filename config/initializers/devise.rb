@@ -9,17 +9,17 @@ Devise.setup do |config|
       #scope: 'userinfo.email,calendar' }
 
     ###################
-   # require 'omniauth-google-oauth2'
-   #   config.omniauth :google_oauth2,Rails.application.secrets.client_id,
-   #  Rails.application.secrets.client_secret,
-   # { hd: "ciencias.unam.mx", access_type: "offline", approval_prompt: "",
-   # scope: 'userinfo.email,userinfo.profile,calendar',skip_jwt: true }
-
-   require 'omniauth-google-oauth2'
+    require 'omniauth-google-oauth2'
       config.omniauth :google_oauth2,Rails.application.secrets.client_id,
      Rails.application.secrets.client_secret,
-    {access_type: "offline", approval_prompt: "",
+    { hd: "ciencias.unam.mx", access_type: "offline", approval_prompt: "",
     scope: 'userinfo.email,userinfo.profile,calendar',skip_jwt: true }
+
+   #require 'omniauth-google-oauth2'
+   #   config.omniauth :google_oauth2,Rails.application.secrets.client_id,
+   #  Rails.application.secrets.client_secret,
+   # {access_type: "offline", approval_prompt: "",
+   #scope: 'userinfo.email,userinfo.profile,calendar',skip_jwt: true }
 
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing

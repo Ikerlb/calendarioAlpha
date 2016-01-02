@@ -104,7 +104,13 @@
                    <i class="fa fa-calendar fa-fw"></i>Eventos
                   <%end%>
                 </li>
-                
+                <%if current_user.is_teacher? || current_user.is_admin? %>
+                    <li>
+                        <%= link_to new_event_path+"/" do %>
+                                <i class="fa fa-plus fa-fw"></i>Crear evento
+                        <%end%>
+                    </li>
+                <%end%>
                 <!--Materias -->
                 <% if controller.controller_name == "subjects"||controller.controller_name=="subscriptions"%>
                     <li class="active">

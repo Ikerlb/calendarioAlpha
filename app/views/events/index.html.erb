@@ -2,26 +2,44 @@
 <div class="row">
     <div class="col-lg-12">
             <h1 class="page-header">
-                Eventos
+                Mis Eventos
             </h1>
     </div>
 </div>
-<!-- /.row -->
 
-<div class="row">
-        <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-calendar fa-fw"></i>Mis eventos</h3>
-                </div>
-                <div class="panel-body">
-                    <center>
-                        <div id="morris-area-chart">
-
-                        </div>
-                    </center>
+<%unless @events.present?%>
+    <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-calendar fa-fw"></i>Eventos</h3>
+                    </div>
+                    <div class="panel-body">
+                            <div id="morris-area-chart">
+                            No tienes ningun evento esta semana
+                            </div>
+                    </div>
                 </div>
             </div>
-        </div>
-</div>
+    </div>
+<%end%>
+<!-- /.row -->
+<% @events.each do |event| %>
+    <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-calendar fa-fw"></i><%=event.summary%></h3>
+                    </div>
+                    <div class="panel-body">
+                            <div id="morris-area-chart">
+                                <p><strong>Materia</strong>: <%=event.organizer.displayName%></p>
+                                <p><strong>Fecha inicio</strong>: <%=event.start.date%></p>
+                                <p><strong>Fecha termino</strong>: <%=event.end.date%></p>
+                            </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+<%end%>
 <!-- /.row -->

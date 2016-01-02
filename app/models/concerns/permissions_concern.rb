@@ -12,4 +12,9 @@ module PermissionsConcern
 	def is_admin?
 		self.permission_level>=3
 	end
+
+	  def is_subject_creator?
+	  	subjects=Subject.where(user_id: self.id)
+	    .present?
+	  end
 end
