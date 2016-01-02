@@ -22,18 +22,19 @@ class EventsController < ApplicationController
     client=init_client
     service= client.discovered_api('calendar','v3')
     batch = Google::APIClient::BatchRequest.new
-    current_user.subscriptions.each do |subscription|
-      subject=subscription.subject
-      batch.add(:api_method => service.events.list,:parameters => {'calendarId' => subject.google_calendar_id,'timeMin' => Time.now.to_datetime.rfc3339, 'timeMax' => Chronic.parse("next week").to_datetime.rfc3339}) do |result|
-        if result.data.items.present?
-           result.data.items.each do |evento|
-            print evento.description
-            eventos<<evento
-           end
+    if current_user.subscriptions.present?
+      current_user.subscriptions.each do |subscription|
+        subject=subscription.subject
+        batch.add(:api_method => service.events.list,:parameters => {'calendarId' => subject.google_calendar_id,'timeMin' => Time.now.to_datetime.rfc3339, 'timeMax' => Chronic.parse("next week").to_datetime.rfc3339}) do |result|
+          if result.data.items.present?
+             result.data.items.each do |evento|
+              eventos<<evento
+             end
+          end
         end
       end
-    end      
-    client.execute(batch)
+      client.execute(batch)
+    end
     @events=eventos
   end
 
@@ -62,7 +63,6 @@ class EventsController < ApplicationController
             'start' => { 'dateTime'=>@event[:start_date].to_datetime.rfc3339 },
             'end'=>{ 'dateTime'=>@event[:end_date].to_datetime.rfc3339 }
           }
-    print evento
     client=init_client
     service = client.discovered_api('calendar', 'v3')
     result = client.execute!(

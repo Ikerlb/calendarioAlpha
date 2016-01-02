@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
 
 	def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
     data = access_token.info
+    print data
     registered_user = User.where(:email => access_token.info.email).first
     if registered_user
       return registered_user
